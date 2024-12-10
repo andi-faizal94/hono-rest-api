@@ -1,0 +1,16 @@
+{
+  "name": "bun-hono-api",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "5.13.0",
+    "file-type": "^19.6.0",
+    "hono": "^4.6.13",
+    "prisma": "5.13.0",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
