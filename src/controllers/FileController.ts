@@ -8,20 +8,18 @@ import prisma from "../../prisma/client";
 
 const UPLOAD_DIR = "./uploads";
 
-// Create the uploads directory if it doesn't exist
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
 
 const uploadedFiles: any = [];
 
-// Limit for file size (e.g., 5MB)
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 export async function uploadFile(c: Context) {
   try {
     const formData = await c.req.parseBody();
-    const file = formData.file; // Ensure this matches the form field name
+    const file = formData.file;
 
     if (!file || typeof file === "string") {
       return c.json(
@@ -32,20 +30,18 @@ export async function uploadFile(c: Context) {
       );
     }
 
-    const mimeType = file.type; // Check the mime type
+    const mimeType = file.type;
     if (!mimeType.startsWith("image/")) {
       return c.json({ message: "Uploaded file is not an image." }, 400);
     }
 
     const filePath = path.join(UPLOAD_DIR, file.name);
 
-    // Ensure the upload directory exists
     if (!fs.existsSync(UPLOAD_DIR)) {
       fs.mkdirSync(UPLOAD_DIR, { recursive: true });
     }
 
-    // Write the file asynchronously
-    await fs.promises.writeFile(filePath, file.file); // Make
+    await fs.promises.writeFile(filePath, file.file);
 
     return c.json({
       message: "File uploaded successfully!",
@@ -77,8 +73,6 @@ export async function uploadImage(c: Context) {
     const base64String = buffer.toString("base64"); // Convert buffer to base64
 
     const fileType = await fileTypeFromBuffer(buffer);
-
-    console.log({ fileType });
 
     if (fileType && fileType.ext) {
       const outputFileName = path.join(
@@ -133,6 +127,26 @@ export async function uploadImage(c: Context) {
 }
 
 export async function getImage(c: Context) {
-  const files = await prisma.file.findMany();
-  return c.json(files);
+  try {
+    const files = await prisma.file.findMany();
+
+    return c.json(
+      {
+        success: true,
+        message: "Files retrieved successfully!",
+        data: files,
+      },
+      200
+    );
+  } catch (error) {
+    console.error(`Error retrieving files: ${error}`);
+
+    return c.json(
+      {
+        success: false,
+        message: "Failed to retrieve files.",
+      },
+      500
+    );
+  }
 }

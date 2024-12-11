@@ -2,17 +2,11 @@ import { Hono } from "hono";
 import {
   createPost,
   deletePost,
+  editPost,
   getPostById,
   getPosts,
   updatePost,
-  editPost,
 } from "../controllers/PostController";
-
-import {
-  getImage,
-  uploadFile,
-  uploadImage,
-} from "../controllers/FileController";
 
 const router = new Hono();
 
@@ -22,8 +16,5 @@ router.get("/:id", (c) => getPostById(c));
 router.patch("/:id", (c) => updatePost(c));
 router.put("/:id", (c) => editPost(c));
 router.delete("/:id", (c) => deletePost(c));
-router.post("/uploads", (c) => uploadFile(c));
-router.post("/upload-image", (c) => uploadImage(c));
-router.get("/image", (c) => getImage(c));
 
 export const Routes = router;
