@@ -5,6 +5,7 @@ CREATE TABLE `posts` (
     `content` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
+    `isDeleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -16,7 +17,7 @@ CREATE TABLE `files` (
     `type` VARCHAR(191) NOT NULL,
     `size` INTEGER NOT NULL,
     `path` VARCHAR(191) NOT NULL,
-    `base64` TEXT NOT NULL,
+    `base64` LONGTEXT NOT NULL,
     `uploadedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,

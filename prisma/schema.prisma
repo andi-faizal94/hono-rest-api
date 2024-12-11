@@ -13,6 +13,7 @@ model Post {
   content   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isDeleted Boolean?  @default(false)
 
   @@map("posts")
 }
@@ -20,7 +21,7 @@ model Post {
 model File {
     id        Int      @id @default(autoincrement())
     filename  String
-    type      String   // Add this line for file type
+    type      String  
     size      Int
     path      String
     base64    String @db.LongText   // Field 

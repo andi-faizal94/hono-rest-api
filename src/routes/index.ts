@@ -5,6 +5,7 @@ import {
   getPostById,
   getPosts,
   updatePost,
+  editPost,
 } from "../controllers/PostController";
 
 import {
@@ -19,6 +20,7 @@ router.get("/", (c) => getPosts(c));
 router.post("/", (c) => createPost(c));
 router.get("/:id", (c) => getPostById(c));
 router.patch("/:id", (c) => updatePost(c));
+router.put("/:id", (c) => editPost(c));
 router.delete("/:id", (c) => deletePost(c));
 router.post("/uploads", (c) => uploadFile(c));
 router.post("/upload-image", (c) => uploadImage(c));
